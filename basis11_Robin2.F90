@@ -1,4 +1,11 @@
+MODULE CONSTANTS
+
+ Double precision, parameter, public :: pi=3.14159274
+
+END MODULE CONSTANTS
+
 PROGRAM BASIS
+USE CONSTANTS
 
  IMPLICIT NONE
 
@@ -13,7 +20,7 @@ PROGRAM BASIS
 	Integer, dimension(5)				     :: HOLD
         Double precision				     :: Density
 	Double precision				     :: L
-        Double precision				     :: ee,a0,prefac,pi,Kf
+        Double precision				     :: ee,a0,prefac,Kf
 	Integer						     :: A,gs
 	Double precision, dimension(:,:), allocatable	     :: H_hf
     	Double precision, dimension(:,:), allocatable	     :: C_hf
@@ -30,12 +37,11 @@ PROGRAM BASIS
 
  ee=1.4399764
  a0=52917.72
- pi=2.D0*dasin(1.D0)
  prefac=ee/(2.0*a0)
 
  L=((6*(pi**2)*A)/(gs*Kf**3))**(1./3.)
 
- write(6,*)L
+ write(6,*)L, pi
  
 
   allocate ( nx(max_orbits), ny(max_orbits), nz(max_orbits), spin(max_orbits) )
@@ -177,7 +183,7 @@ END PROGRAM  BASIS
 !-------------------------------------------------------------------------
 
  FUNCTION MATRIXELEMENT_V (p,q,r,s,L,states,max_orbits,qnums) RESULT (V)
-
+ USE constants
  integer p,q,r,s,max_orbits,qnums
  Double precision L,Qrp,Qsp,DELTA
  Double precision V1,V2,V3,V4,V
@@ -224,7 +230,7 @@ END PROGRAM  BASIS
   V3=V3*(1/Qsp)
  end if
 
- V = 2
+ V = V1*(V2-V3)
 
  END FUNCTION MATRIXELEMENT_V
 
