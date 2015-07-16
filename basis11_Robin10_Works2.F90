@@ -34,7 +34,9 @@ USE CONSTANTS
         Integer						     :: m,n,gam,delt
 	Double precision				     :: Kin,Pot
 	Double precision				     :: Tinf
+        Integer						     :: NumPoints,NumPointsC
 
+ NumPoints = 5
 
  nmax=1
  max_orbits = 1300
@@ -54,7 +56,15 @@ USE CONSTANTS
 
 ! write(6,*)prefac
 
- Density=0.16 !fm^-3
+  allocate ( nx(max_orbits), ny(max_orbits), nz(max_orbits), spin(max_orbits) )
+  allocate ( E(max_orbits) )
+  allocate ( states(qnums,max_orbits) )
+  allocate ( H_hf(max_orbits,max_orbits) )
+  allocate ( C_hf(A,max_orbits) )
+
+ do NumPointsC=1,NumPoints
+
+ Density=0.16*(NumPointsC/5.) !fm^-3
 
  Vol = (A/Density)
 
@@ -62,20 +72,13 @@ USE CONSTANTS
 
  Kf=( (6.*(pi**2))*Density/gs)**(1./3.)
 
- write(6,*)'Kf= ',Kf
+! write(6,*)'Kf= ',Kf
 
  Tinf=(3*(hbar**2)*(Kf**2))/(10.*mn)
 
 ! L=((6*(pi**2)*A)/(gs*Kf**3))**(1./3.)
 
 ! write(6,*)L, pi
- 
-
-  allocate ( nx(max_orbits), ny(max_orbits), nz(max_orbits), spin(max_orbits) )
-  allocate ( E(max_orbits) )
-  allocate ( states(qnums,max_orbits) )
-  allocate ( H_hf(max_orbits,max_orbits) )
-  allocate ( C_hf(A,max_orbits) )
 
  nx=0
  ny=0
@@ -123,9 +126,9 @@ i=0
  end do
 
 
- DO j=1,i
-  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
- END DO
+! DO j=1,i
+!  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
+! END DO
 
 ! write(6,*)MATRIXELEMENT_V (1,12,7,10,L,states,max_orbits,qnums)
 
@@ -167,16 +170,17 @@ i=0
   enddo
  enddo
 
-write(6,*)'Kinetic Energy=',Kin/A,' MeV'
-write(6,*)'Potential energy=',Pot/A,' MeV'
-write(6,*)'Hard tree-fock energy ',(Kin+Pot)/A,' MeV'
-write(6,*)'Inf Kinetic Energy=',Tinf,' MeV'
-write(6,*)'1-T/Tinf ', 1.0 - Tinf/(Kin/A),' MeV'
+!write(6,*)'Kinetic Energy=',Kin/A,' MeV'
+!write(6,*)'Potential energy=',Pot/A,' MeV'
+!write(6,*)'Hard tree-fock energy ',(Kin+Pot)/A,' MeV'
+!write(6,*)'Inf Kinetic Energy=',Tinf,' MeV'
+!write(6,*)'1-T/Tinf ', 1.0 - Tinf/(Kin/A),' MeV'
 
+ write(6,*)Density,(Kin+Pot)/A
+
+ end do
 
      deallocate ( nx, ny, nz, spin, E )
-
-
 
 
 END PROGRAM  BASIS
