@@ -2,7 +2,7 @@ MODULE CONSTANTS
 
  Double precision, parameter, public :: pi=3.14159274
  Double precision, parameter, public :: hbar=197.326 !MeV c
- Double precision, parameter, public :: me=0.511 !MeV / c^2
+ Double precision, parameter, public :: me=937. !MeV / c^2
 
 END MODULE CONSTANTS
 
@@ -37,7 +37,7 @@ USE CONSTANTS
  nmax=1
  max_orbits = 1300
  qnums = 5
- A=2
+ A=14
  gs=2
  Kf=1.0
  r0=1.0
@@ -57,6 +57,8 @@ USE CONSTANTS
  Vol = (A/Density)
 
  L = Vol**(1./3.)
+
+ Kf=( ((6.*pi)**2)*Density/gs)**(1./3.)
 
 ! L=((6*(pi**2)*A)/(gs*Kf**3))**(1./3.)
 
@@ -149,15 +151,6 @@ i=0
   end do
  end do
 
-! do m=-1,1,2
-!  do n=-1,1,2
-!   do gam=-1,1,2
-!    do o=-1,1,2
-!     write(6,*)m,n,gam,o,chp_tau_dot_tau_mtx(m,n,gam,o)
-!    end do
-!   end do
-!  end do
-! end do
  Kin=0.0
  Pot=0.0
  do m=1,A
@@ -165,8 +158,6 @@ i=0
   do j=1,A
    Pot=Pot+0.5*(vmom_minnesota(m,j,m,j,L,states,max_orbits,qnums) &
       -vmom_minnesota(m,j,j,m,L,states,max_orbits,qnums))
-!    write(6,*)vmom_minnesota(m,j,m,j,L,states,max_orbits,qnums)
-!   write(6,*)MATRIXELEMENT_V(m,j,m,j,L,states,max_orbits,qnums)
   enddo
  enddo
 
