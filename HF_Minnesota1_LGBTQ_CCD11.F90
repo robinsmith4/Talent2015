@@ -45,6 +45,7 @@ USE CONSTANTS
 	Double precision				     :: Ec1,Ec2
 	Integer,dimension(:,:), allocatable		     :: Chan_Indx_dum
 	Integer,dimension(:,:), allocatable		     :: Chan_Indx
+        Integer,dimension(:,:), allocatable		     :: Chan_Indx2
 	Integer,dimension(:), allocatable		     :: Chan_States_Num
         Integer,dimension(:,:,:), allocatable		     :: Chan_States
         Integer						     :: counter,NumChans
@@ -150,9 +151,9 @@ i=0
  allocate ( FockDiag(NumStates) )
 
 
- DO j=1,i
-  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
- END DO
+! DO j=1,i
+!  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
+! END DO
 
 !----------------------------------------------------------------
 !----------------------------------------------------------------
@@ -246,7 +247,7 @@ i=0
 
 ! write(6,*)'MBPT Energy'
 ! write(6,*)Kin,Density,(Kin+MBPT_E2)/A
- write(6,*)Density,(Kin+Pot+MBPT_E2)/NumPart,MBPT_E2
+! write(6,*)Density,(Kin+Pot+MBPT_E2)/NumPart,MBPT_E2
 
 ! end do
 
@@ -270,7 +271,7 @@ i=0
       Chan_Indx(counter,3)=j
       Chan_Indx(counter,4)=b
       Chan_Indx(counter,5)=c
-      write(6,*)counter,m,i,j,b,c
+!      write(6,*)counter,m,i,j,b,c
      end do
     end do
    end do
@@ -281,24 +282,28 @@ i=0
  Chan_States_Num=0
  do a=1,NumStates
   do b=1,NumStates
-   Nxsum=states(1,a)+states(1,b)
-   Nysum=states(2,a)+states(2,b)
-   Nzsum=states(3,a)+states(3,b)
-   Szsum=states(4,a)+states(4,b)
-   Tzsum=states(5,a)+states(5,b)
-   do i=1,NumChans
-    if((Nxsum.eq.Chan_Indx(i,1)).and.(Nysum.eq.Chan_Indx(i,2)).and. &
-    (Nzsum.eq.Chan_Indx(i,3)).and.(Szsum.eq.Chan_Indx(i,4)).and.(Tzsum.eq.Chan_Indx(i,5))) then
-     Chan_States_Num(i)=Chan_States_Num(i)+1
-    endif
-   end do
+    Nxsum=states(1,a)+states(1,b)
+    Nysum=states(2,a)+states(2,b)
+    Nzsum=states(3,a)+states(3,b)
+    Szsum=states(4,a)+states(4,b)
+    Tzsum=states(5,a)+states(5,b)
+    do i=1,NumChans
+     if((Nxsum.eq.Chan_Indx(i,1)).and.(Nysum.eq.Chan_Indx(i,2)).and. &
+     (Nzsum.eq.Chan_Indx(i,3)).and.(Szsum.eq.Chan_Indx(i,4)).and.(Tzsum.eq.Chan_Indx(i,5))) then
+      Chan_States_Num(i)=Chan_States_Num(i)+1
+     endif
+    end do
   end do
  end do
- 
+
  counter=0
  do i=1,NumChans
   write(6,*)i,Chan_States_Num(i)
   counter=counter+Chan_States_Num(i)
+!  counter=counter+1
+!  if(Chan_States_Num(i).ne.0) then
+!   Chan_Indx2(counter,1)=Chan_Indx(i,1)
+! endif
  end do
  write(6,*)counter
 
@@ -306,7 +311,7 @@ i=0
 
  write(6,*)Max_ab
 
- allocate ( Chan_States(NumChans,Max_ab,Max_ab) )
+ allocate ( Chan_States(NumChans,Max_ab,2) )
  Chan_States=0
 
 
