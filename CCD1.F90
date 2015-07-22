@@ -6,6 +6,7 @@ MODULE CONSTANTS
  Double precision, parameter, public :: mn=939.565 !MeV / c^2
  Integer, parameter, public :: NumPart=14
 
+
 END MODULE CONSTANTS
 
 PROGRAM BASIS
@@ -152,9 +153,9 @@ i=0
  allocate ( FockDiag(NumStates) )
 
 
-! DO j=1,i
-!  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
-! END DO
+ DO j=1,i
+  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
+ END DO
 
 !----------------------------------------------------------------
 !----------------------------------------------------------------
@@ -386,7 +387,7 @@ i=0
  Ec1=Ec1*0.25
 
  write(6,*)'Initial E_corr ',Ec1
-
+ write(6,*)L
  do m=1,1000
 !  write(6,*)'Starting Iteration ',m
   CALL CCD_Opt(L,FockDiag,NumStates,states,max_orbits,qnums,E,T_mat1,T_mat2)
@@ -407,7 +408,6 @@ i=0
  end do
 100 continue
  write(6,*)'Converged E_corr',Ec2
-
 
 
      deallocate ( nx, ny, nz, spin, E )
