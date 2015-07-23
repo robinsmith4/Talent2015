@@ -330,9 +330,9 @@ PROGRAM BETTERSTORAGE
                    if(ChannelCheck(alpha,i,j).eq.1) then
 		    ket = ket + 1 
                     lookup_hh(i,j) = ket
-                    vnn_hhpp(alpha)%val(ket,bra) = minnesota_ass(a,b,i,j) !bra*ket 
+                    vnn_hhpp(alpha)%val(ket,bra) = minnesota_ass(i,j,a,b) !bra*ket 
                     t2_ccm(alpha)%val(bra,ket) = minnesota_ass(a,b,i,j) &
-	            /(FockDiag(a) + FockDiag(b) - FockDiag(i) - FockDiag(j)) !bra*ket*2.
+	            /(FockDiag(i) + FockDiag(j) - FockDiag(a) - FockDiag(b)) !bra*ket*2.
 !		    write(6,*)alpha,bra,ket,minnesota_ass(a,b,i,j)
 		  !if(minnesota_ass(a,b,i,j).ne.0) write(6,*)alpha,bra,ket,minnesota_ass(a,b,i,j)
 		  !write(6,*)alpha,bra,ket,minnesota_ass(a,b,i,j)

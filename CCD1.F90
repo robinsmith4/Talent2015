@@ -247,7 +247,8 @@ i=0
 
  MBPT_E2=0.25*MBPT_E2
 
-! write(6,*)'MBPT Energy'
+ write(6,*)'MBPT Energy'
+ write(6,*)MBPT_E2
 ! write(6,*)Kin,Density,(Kin+MBPT_E2)/A
 ! write(6,*)Density,(Kin+Pot+MBPT_E2)/NumPart,MBPT_E2
 
