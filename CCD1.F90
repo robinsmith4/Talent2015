@@ -80,7 +80,7 @@ USE CONSTANTS
 
 ! do NumPointsC=1,NumPoints
 
- Density=0.08*(1.0*NumPointsC/NumPoints) !fm^-3
+ Density=0.12*(1.0*NumPointsC/NumPoints) !fm^-3
 
 ! Density=0.16 !fm^-3
 
@@ -402,6 +402,7 @@ i=0
    end do
   end do
   T_mat1=T_mat2
+  Ec2=Ec2*0.25
   write(6,*)'E_corr iteration ',m,Ec2
   if(abs(Ec2-Ec1).lt.1.0e-4) go to 100
   Ec1=Ec2
