@@ -153,9 +153,9 @@ i=0
  allocate ( FockDiag(NumStates) )
 
 
- DO j=1,i
-  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
- END DO
+! DO j=1,i
+!  write(6,*)j,states(1,j),states(2,j),states(3,j),states(4,j),states(5,j),E(j)
+! END DO
 
 !----------------------------------------------------------------
 !----------------------------------------------------------------
@@ -301,18 +301,18 @@ i=0
 
  counter=0
  do i=1,NumChans
-  write(6,*)i,Chan_States_Num(i)
+!  write(6,*)i,Chan_States_Num(i)
   counter=counter+Chan_States_Num(i)
 !  counter=counter+1
 !  if(Chan_States_Num(i).ne.0) then
 !   Chan_Indx2(counter,1)=Chan_Indx(i,1)
 ! endif
  end do
- write(6,*)counter
+! write(6,*)counter
 
  Max_ab=MaxVal(Chan_States_Num)
 
- write(6,*)Max_ab
+! write(6,*)Max_ab
 
  allocate ( Chan_States(NumChans,Max_ab,2) )
  Chan_States=0
@@ -339,14 +339,14 @@ i=0
  Num_ME=0
  do i=1,NumChans
   Num_ME=Num_ME+(Chan_States_Num(i)**2)
-  write(6,*)'Channel ',i
+!  write(6,*)'Channel ',i
   do m=1,Chan_States_Num(i)
-   write(6,*)Chan_States(i,m,1),Chan_States(i,m,2)
+!   write(6,*)Chan_States(i,m,1),Chan_States(i,m,2)
   end do
-  write(6,*)' '
+!  write(6,*)' '
  end do
 
- write(6,*)Num_ME
+! write(6,*)Num_ME
 
 
 !----------------------------------------------------------------
@@ -388,7 +388,7 @@ i=0
  Ec1=Ec1*0.25
 
  write(6,*)'Initial E_corr ',Ec1
- write(6,*)L
+
  do m=1,1000
 !  write(6,*)'Starting Iteration ',m
   CALL CCD_Opt(L,FockDiag,NumStates,states,max_orbits,qnums,E,T_mat1,T_mat2)
@@ -775,7 +775,7 @@ END PROGRAM  BASIS
    do a=NumPart+1,NumStates
     do b=NumPart+1,NumStates
 !     write(6,*)'Calculating T_',i,j,a,b
-     T2(i,j,a,b)=minnesota_ass(a,b,i,j,L,states,max_orbits,qnums)
+!     T2(i,j,a,b)=minnesota_ass(a,b,i,j,L,states,max_orbits,qnums)
      do c=NumPart+1,NumStates
       do d=NumPart+1,NumStates
        T2(i,j,a,b)=T2(i,j,a,b) &
